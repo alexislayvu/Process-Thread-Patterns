@@ -1,0 +1,190 @@
+TEST_CASE 1: Testing the '-h' command
+- Input: "./main -h"
+- Expected: A message describing how to properly run the program.
+- Output: "How to run the program:
+          ./main [num_of_things] [process_or_thread] [pattern_num]
+          
+          num_of_things - The number of subprocesses or threads you want to create.
+          process_or_thread - What type of 'thing' you want to create: a process or a thread
+          pattern_num - Which pattern you want to choose: 1 or 2.
+          
+          Here are some examples of what you can type in the Console (try it out yourself!)
+          ./main 7 process 1
+          or
+          ./main 12 thread 2"
+
+
+TEST_CASE 2: Testing the '-help' command
+- Input: "./main -help"
+- Expected: A message describing how to properly run the program.
+- Output: "How to run the program:
+          ./main [num_of_things] [process_or_thread] [pattern_num]
+          
+          num_of_things - The number of subprocesses or threads you want to create.
+          process_or_thread - What type of 'thing' you want to create: a process or a thread
+          pattern_num - Which pattern you want to choose: 1 or 2.
+          
+          Here are some examples of what you can type in the Console (try it out yourself!)
+          ./main 7 process 1
+          or
+          ./main 12 thread 2"
+
+
+TEST_CASE 3: Testing the "-d" command
+- Input: "./main -d"
+- Expected: A message reminding the user how to run the program.
+- Output: "DEBUG MSG #1: num_of_things should be an integer value between 1 and 256.
+           DEBUG MSG #2: process_or_thread should be a string input of either 'process' or 
+                     'thread'.
+           DEBUG MSG #3: pattern_num should be an integer value of either 1 or 2."
+
+
+TEST_CASE 5: Testing pattern_one_process
+- Input: "./main 5 process 1"
+- Parameters:
+  - num_of_things: 5
+  - process_or_thread: process
+  - pattern_num: 1
+- Expected: I should see 5 processes forked ALL before they exit.
+- Output: "Process 1 (2408) beginning
+           Process 2 (2409) beginning
+           Process 5 (2412) beginning
+           Process 4 (2411) beginning
+           Process 3 (2410) beginning
+           Process 1 (2408) exiting
+           Process 5 (2412) exiting
+           Process 2 (2409) exiting
+           Process 4 (2411) exiting
+           Process 3 (2410) exiting"
+
+
+TEST_CASE 6: Testing pattern_two_process
+- Input: "./main 7 process 2"
+- Parameters:
+  - num_of_things: 7
+  - process_or_thread: process
+  - pattern_num: 2
+- Expected: I expect to see 7 processes being created, creating the next 
+            process, and exiting before the next process beings. The last 
+            process should not create any more processes and should exit 
+            after it begins.
+- Output: "Process 1 (3035) beginning
+           Process 1 (3035) creating Process 2 (3039)
+           Process 1 (3035) exiting
+          
+           Process 2 (3039) beginning
+           Process 2 (3039) creating Process 3 (3043)
+           Process 2 (3039) exiting
+          
+           Process 3 (3043) beginning
+           Process 3 (3043) creating Process 4 (3050)
+           Process 3 (3043) exiting
+          
+           Process 4 (3050) beginning
+           Process 4 (3050) creating Process 5 (3057)
+           Process 4 (3050) exiting
+          
+           Process 5 (3057) beginning
+           Process 5 (3057) creating Process 6 (3064)
+           Process 5 (3057) exiting
+          
+           Process 6 (3064) beginning
+           Process 6 (3064) creating Process 7 (3068)
+           Process 6 (3064) exiting
+          
+           Process 7 (3068) beginning
+           Process 7 (3068) exiting"
+
+
+TEST_CASE 7: Testing pattern_one_thread
+- Input: "./main 4 thread 1"
+- Parameters:
+  - num_of_things: 4
+  - process_or_thread: thread
+  - pattern_num: 1
+- Expected: I should see 4 threads begin before they exit.
+- Output: "Thread 1 (140688962909760) beginning
+           Thread 2 (140688954517056) beginning
+           Thread 3 (140688946124352) beginning
+           Thread 4 (140688937731648) beginning
+           Thread 1 (140688962909760) exiting
+           Thread 3 (140688946124352) exiting
+           Thread 4 (140688937731648) exiting
+           Thread 2 (140688954517056) exiting"
+
+
+TEST_CASE 8: Testing pattern_two_thread
+- Input: "./main 6 thread 2"
+- Parameters:
+  - num_of_things: 6
+  - process_or_thread: thread
+  - pattern_num: 2
+- Expected: I expect to see 6 threads being created, creating the next 
+            thread, and exiting before the next thread beings. The last 
+            thread should not create any more threads and should exit 
+            after it begins.
+- Output: "Thread 1 (139805400938048) beginning
+           Thread 1 (139805400938048) creating Thread 2 (139805392545344)
+           Thread 1 (139805400938048) exiting
+          
+           Thread 2 (139805392545344) beginning
+           Thread 2 (139805392545344) creating Thread 3 (139805384152640)
+           Thread 2 (139805392545344) exiting
+          
+           Thread 3 (139805384152640) beginning
+           Thread 3 (139805384152640) creating Thread 4 (139805375759936)
+           Thread 3 (139805384152640) exiting
+          
+           Thread 4 (139805375759936) beginning
+           Thread 4 (139805375759936) creating Thread 5 (139805367367232)
+           Thread 4 (139805375759936) exiting
+          
+           Thread 5 (139805367367232) beginning
+           Thread 5 (139805367367232) creating Thread 6 (139805358974528)
+           Thread 5 (139805367367232) exiting
+          
+           Thread 6 (139805358974528) beginning
+           Thread 6 (139805358974528) exiting"
+
+
+TEST_CASE 9: Testing an invalid num_of_things input
+- Input: "./main 257 process 1"
+- Parameters:
+  - num_of_things: 257
+  - process_or_thread: process
+  - pattern_num: 1
+- Expected: An error message saying num_of_things should be between 1 and 256.
+- Output: "Please enter a number between 1 and 256 for argument 1."
+
+
+TEST_CASE 10: Testing an invalid pattern_num input
+- Input: "./main 13 thread 3"
+- Parameters:
+  - num_of_things: 13
+  - process_or_thread: thread
+  - pattern_num: 3
+- Expected: An error message saying pattern_num should be 1 or 2.
+- Output: "Invalid pattern number! Please enter 1 or 2 for argument 3."
+
+
+TEST_CASE 11: Testing an invalid process_or_thread input
+- Input: "./main 3 procss 1"
+- Parameters:
+  - num_of_things: 13
+  - process_or_thread: procss
+  - pattern_num: 3
+- Expected: An error message saying process_or_thread should be 'process'
+            or 'thread'.
+- Output: "Invalid method! Please enter either 'process' or 'thread' for 
+           argument 2."
+
+
+TEST_CASE 12: Not enough arguments
+- Input: "./main f"
+- Parameters:
+  - num_of_things: N/A
+  - process_or_thread: N/A
+  - pattern_num: N/A
+- Expected: An error message saying not enough arguments were supplied.
+- Output: "Not enough arguments supplied. Type './main -h' or './main -help'
+           for more information."
