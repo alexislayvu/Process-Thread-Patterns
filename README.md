@@ -1,7 +1,8 @@
 # Process/Thread Patterns
-Implemented different patterns using Processes/Threads
+Implemented various patterns using Processes and Threads in C.
 
-# Help Instructions (./main -h or -help)
+# Help Menu
+`./main -h` <br><br>
 ![help_instructions](https://user-images.githubusercontent.com/54639928/208352905-b3e97bbd-b470-4dc9-9b1b-9e6916156b1f.png)
 
 # Pattern 1
